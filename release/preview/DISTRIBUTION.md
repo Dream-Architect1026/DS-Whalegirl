@@ -25,7 +25,17 @@
 
 ## 本轮实测
 
-（tag 创建后回填，证据文件 `_harness/evidence/preview-http-verify-20261105-tag.json`）
+| 地址 | 镜像 | HTTP | 字节 | SHA256 | 与本包一致 |
+|---|---|---|---|---|---|
+| `@v0.5.3.0-preview.1` | cdn.jsdelivr.net | 200 | 719329 | `a85db170…` | 是 |
+| `@v0.5.3.0-preview.1` | fastly.jsdelivr.net | 200 | 719329 | `a85db170…` | 是 |
+| `@v0.5.3.0-preview.1` | gcore.jsdelivr.net | 200 | 719329 | `a85db170…` | 是 |
+| `@main` | cdn.jsdelivr.net | 200 | 719329 | `a85db170…` | 是（分支缓存已刷新） |
+| `@main` | fastly.jsdelivr.net | 200 | 719327 | `74a25622…` | 否（旧缓存，≤12h 自动刷新） |
+
+- **结论**：下载地址（tag）三家镜像一律精确命中本包字节，首次安装无需等待缓存；更新地址（`@main`）主镜像已刷新，个别镜像仍有旧字节，最多 12h 收敛。
+- 证据：`_harness/evidence/preview-http-verify-20261105-tag.json`；发布凭据：`_harness/evidence/preview-push-20261105d.json`（commit `af6c47a9…`，tag 指向同一 commit）。
+- 本地基准：`719329B / a85db1705dd01f8ead2d682398f9a52f7cc06634f7244f1ea4057e62b5b1c330`。
 
 复核命令（可直接复跑）：
 
