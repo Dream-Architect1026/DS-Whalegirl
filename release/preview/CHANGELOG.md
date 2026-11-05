@@ -1,4 +1,4 @@
-﻿# CHANGELOG · 预览版 v0.5.3.0-preview.1
+# CHANGELOG · 预览版 v0.5.3.0-preview.1
 
 本文件只记录**预览发布通道**的条目；稳定版变更见仓库根目录 `CHANGELOG.md`（首条仍为 v0.5.2.4，未改动）。
 

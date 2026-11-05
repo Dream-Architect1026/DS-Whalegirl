@@ -9,9 +9,9 @@
 
 | # | 文件名 | 字节数 | SHA256 |
 |---|---|---|---|
-| 1 | `DS-Whalegirl-preview.user.js` | 719327 | `74a25622efac4d84d1b50949883589a4e28d8d3d48d54681abd82f03a5951a4e` |
-| 2 | `README.md` | 6595 | `ac43496c6822f66be8ba539fdb4ea7be0932109a76c0475de12de758b769471e` |
-| 3 | `CHANGELOG.md` | 4064 | `8eab2abb440c51e8b618ac54f3ca93c2cc4743804bafd65a10cf37179148e751` |
+| 1 | `DS-Whalegirl-preview.user.js` | 719315 | `6cbc1d1ac250dee6f5bb052501e265a53142c4a3d29d94a47f525bd343ad8f4e` |
+| 2 | `README.md` | 6580 | `08fb0983e206a25c81bd650b12db1e28e018f773f3cf7497494b27eb7e396f3e` |
+| 3 | `CHANGELOG.md` | 4061 | `e39a2b8ec65b590d5d33d8d7af716841ad3c6936eb4c0f86d4a68784b272d417` |
 | 4 | `PRE-RELEASE-CHECKLIST.md` | 3919 | `0f58857eb1ec5ebc3182ca17f651ad58f042c267126ea7eb9eb04e519d7624a1` |
 | 5 | `LICENSE` | 1059 | `28e76346109b297d34af769b179323ef5b72164bf33b2aab0694b30caf3cd83b` |
 | 6 | `assets/preview-panel.jpg` | 147240 | `7973c4790dc723a2880f86e6dc3da3e5f0298f7078d4a7a70669715f57a953f9` |
@@ -32,6 +32,6 @@ Windows 用 `certutil -hashfile <文件> SHA256` 对照）。
 
 - 逐项核对 `PRE-RELEASE-CHECKLIST.md`；当前无阻塞项。
 - 稳定版 `DS-Whalegirl.user.js` 与 `D-Whaler.user.js` 不在本包内，保持原样。
-- 本包相对稳定版共 14 行差异：6 行元信息/构建号 + 8 行带「预览版」标记的行为改动
+- 本包相对稳定版共 35 行差异：7 行元信息/构建号 + 28 行带「预览版」标记的行为改动
   （首播提速默认开启、attachShadow 探针收敛、pending 状态移除），由 `check_preview` 自动校验。
 - 自动更新：`@updateURL` 指向 `release/preview/DS-Whalegirl-preview.user.js`，上传后需 200 复验（见 `DISTRIBUTION.md`）。
