@@ -17,7 +17,8 @@
   2. 旧面板 `attachShadow` 探针只探「可见且可命中」的元素且只探一次，不再给页面稍后填充的挂载根挂空 shadow。
   3. 删除无消费方的 `pendingResume/pending` 状态，后台待恢复仍由回前台立即扫描兜底（行为等价）。
 - 新增只读指纹 `__HX_PREVIEW__()`，可核验本版改动是否生效。
-- 更新地址：`https://cdn.jsdelivr.net/gh/Dream-Architect1026/DS-Whalegirl@main/release/preview/DS-Whalegirl-preview.user.js`。
+- 下载地址（固定版本）：`https://cdn.jsdelivr.net/gh/Dream-Architect1026/DS-Whalegirl@v0.5.3.0-preview.1/release/preview/DS-Whalegirl-preview.user.js`。
+  更新地址仍走 `@main`，因此**现在安装拿到的一定是本版**，后续更新则最多等 12h 分支缓存。
 
 ### 2. 三步操作
 
@@ -63,7 +64,8 @@ This is the **early preview build** of DS-Whalegirl. Compared with stable v0.5.2
   2. The legacy-panel `attachShadow` probe now only touches visible, hit-testable bare divs and probes each element once — page mount roots are no longer given an empty shadow root.
   3. The consumer-less `pendingResume/pending` state is removed; background resume is still handled immediately by `hxOnVisible` on return to foreground (behaviour equivalent).
 - New read-only fingerprint `__HX_PREVIEW__()` for verifying this build is active.
-- **Update URL**: `https://cdn.jsdelivr.net/gh/Dream-Architect1026/DS-Whalegirl@main/release/preview/DS-Whalegirl-preview.user.js`.
+- **Download URL** (pinned to the release tag): `https://cdn.jsdelivr.net/gh/Dream-Architect1026/DS-Whalegirl@v0.5.3.0-preview.1/release/preview/DS-Whalegirl-preview.user.js`.
+  The update URL still uses `@main`, so installing now always gets this build; later updates may wait up to 12h for the branch cache.
 
 ### 2. Three steps
 
