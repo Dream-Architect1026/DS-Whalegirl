@@ -6,7 +6,7 @@
 
 | 文件名 | 字节数 | SHA256 |
 |---|---|---|
-| `DS-Whalegirl-0.5.3.0-preview.1.zip` | 479543 | `1b95283150447e92d09612cbe2507731a29bf07c302c5acde377e208a09d87a3` |
+| `DS-Whalegirl-0.5.3.0-preview.1.zip` | 479666 | `24c5f9d8474bed19696a0000f0215957aeedd4ff7c933ee3cffb39e5f0a4e42d` |
 
 ## 线上更新地址（本轮 404 修复）
 
