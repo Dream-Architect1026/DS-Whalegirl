@@ -15,9 +15,9 @@
 | `@downloadURL` / `@updateURL` | `https://cdn.jsdelivr.net/gh/Dream-Architect1026/DS-Whalegirl@main/release/preview/DS-Whalegirl-preview.user.js` |
 | 期望状态 | HTTP 200，且下载内容 SHA256 与本机一致 |
 | 校验方式 | `Invoke-WebRequest` 取回 → `Get-FileHash -Algorithm SHA256` 比对 |
-| 发布 commit | `6f8697bd3d07d28c92adc19fb1b73bc828acfa29`（仅新增 `release/preview/`） |
-| 固定地址校验 | **200 / 719315B / SHA256 `6cbc1d1a…` 一致**（`@6f8697bd…`，见 `_harness/evidence/preview-http-verify-20261105b.json`） |
-| `@main` 地址校验 | **200，但内容仍为第一版构建（719327B / `74a25622…`）**：jsDelivr 对分支文件有 12 小时（`s-maxage=43200`）缓存，已用 `purge.jsdelivr.net` 两级清理（CF/FY 均返回 finished）仍未刷新 |
+| 发布 commit | 脚本发布 `6f8697bd3d07d28c92adc19fb1b73bc828acfa29`（后续 `2d42d1ff…` 仅更新文档，脚本字节不变） |
+| 固定地址校验 | **200 / 719315B / SHA256 `6cbc1d1a…` 一致**（`@6f8697bd…`、`@2d42d1ff…` 两次均一致，见 `_harness/evidence/preview-http-verify-20261105c.json`） |
+| `@main` 地址校验 | **200，但内容仍为第一版构建（719327B / `74a25622…`）**：jsDelivr 对分支文件有 12 小时（`s-maxage=43200`）缓存，已用 `purge.jsdelivr.net` 两级清理（CF/FY 均返回 finished）仍未刷新；同批次的 PACKAGE-MANIFEST / DISTRIBUTION 等 `.md` 在 `@main` 已是最新（逐路径缓存只命中大文件） |
 | 结论 | 404 已消除；自动更新链路可用。若需「立刻」拿到本轮内容，把地址中的 `@main` 换成 `@6f8697bd3d07d28c92adc19fb1b73bc828acfa29`；否则最长 12 小时后 `@main` 自动刷新到本轮构建（同版本号 `0.5.3.0-preview.1`，差异仅为两条 URL 元信息） |
 
 复核命令（可直接复跑）：
