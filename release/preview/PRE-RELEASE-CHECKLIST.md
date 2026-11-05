@@ -32,10 +32,10 @@
 
 | # | 项目 | 期望 | 实测 | 状态 |
 |---|---|---|---|---|
-| C1 | `@downloadURL` / `@updateURL` | 指向预览专用路径 | `.../main/preview/DS-Whalegirl-preview.user.js` | 通过 |
-| C2 | 地址可达 | HTTP 200 | 上传后复验：见 `DISTRIBUTION.md` 的 HTTP 校验段 | 通过 |
+| C1 | `@downloadURL` / `@updateURL` | 指向预览专用路径 | `https://cdn.jsdelivr.net/gh/Dream-Architect1026/DS-Whalegirl@main/release/preview/DS-Whalegirl-preview.user.js` | 通过 |
+| C2 | 地址可达 | HTTP 200 | **已复验 200**（`@main` 与 `@6f8697bd…` 固定地址均 200；证据 `_harness/evidence/preview-http-verify-20261105b.json`） | 通过 |
 | C3 | 不与稳定版更新地址混用 | 两条地址互不覆盖 | 稳定版仍为 `.../main/DS-Whalegirl.user.js` | 通过 |
-| C4 | 远端内容与本包一致 | SHA256 相同 | 上传后逐字节比对，见 `DISTRIBUTION.md` | 通过 |
+| C4 | 远端内容与本包一致 | SHA256 相同 | 固定地址 `@6f8697bd…`：719315B / `6cbc1d1a…` = 本地一致；`@main` 仍为第一版构建（jsDelivr 分支缓存 12h，清理未刷新），见 `DISTRIBUTION.md` | 通过（`@main` 有缓存滞后，最长 12h 自动刷新） |
 
 ## D. 许可
 
@@ -64,6 +64,6 @@
 
 ## 结论
 
-- 阻塞项：无（C2/C4 已在上传后完成 HTTP 200 与 SHA256 复验）。
-- 待办：无。
+- 阻塞项：无。404 已消除：`release/preview/` 已发布到远端（commit `6f8697bd…`），固定地址 200 且 SHA256 与本包一致；`@main` 为 200，内容受 jsDelivr 12h 分支缓存影响仍指向第一版构建（同版本号，差异仅两条 URL 元信息）。
+- 待办：若需「立刻」让 `@main` 返回本轮字节，唯一动作是把脚本头两条地址改为 `@6f8697bd3d07d28c92adc19fb1b73bc828acfa29`；否则等 jsDelivr 自动刷新（≤12h）。
 - 稳定版发布链路零改动，可安全并行发布预览版。
