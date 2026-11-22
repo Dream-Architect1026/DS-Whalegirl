@@ -4,559 +4,423 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DS-Whalegirl · 超星学习通学习辅助助手</title>
-<meta name="description" content="DS-Whalegirl：超星学习通学习辅助助手。AI 自动答题（最多重问 3 遍）、视频倍速与卡顿自愈、后台挂机守护、文档图书自动完成、加密字体解密、API 用量与花费可视化。MIT 开源。">
+<meta name="description" content="DS-Whalegirl：超星学习通的学习辅助脚本。AI 自动答题（最多重问 3 遍）、后台挂机守护、视频倍速与卡顿自愈、加密字体解密、花费可视化，全部收在右下角一个液态玻璃面板里。">
 <meta property="og:title" content="DS-Whalegirl · 超星学习通学习辅助助手">
-<meta property="og:description" content="AI 自动答题、后台挂机守护、字体解密、花费可视化。潜入深海，替你捕完所有的课。">
+<meta property="og:description" content="AI 自动答题、后台挂机、卡顿自愈、字体解密。全部能力收在右下角一个面板里。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://dream-architect1026.github.io/DS-Whalegirl/">
-<meta property="og:image" content="https://dream-architect1026.github.io/DS-Whalegirl/assets/panel-hero.jpeg">
+<meta property="og:image" content="https://dream-architect1026.github.io/DS-Whalegirl/assets/icon.png">
 <link rel="canonical" href="https://dream-architect1026.github.io/DS-Whalegirl/">
 <link rel="icon" href="./assets/icon.png">
 <style>
-/* ═════ 变量：品牌青 / 紫，单一色族不扩色 ═════ */
 :root{
-  --bg:#050B16;--ink:#E8F4FF;--dim:#9FB4D0;--dim2:#6C829E;
-  --c1:rgba(56,226,255,.12);--c2:rgba(56,226,255,.26);--c3:rgba(56,226,255,.42);
-  --c4:rgba(56,226,255,.62);--c5:rgba(56,226,255,.82);
-  --acc:#38E2FF;--vio:#9B6BFF;--glass:rgba(16,28,54,.42);
-  --rim:rgba(232,246,255,.24);--rim2:rgba(232,246,255,.09);
-  --tint:linear-gradient(155deg,rgba(255,255,255,.16) 0%,rgba(255,255,255,.05) 34%,rgba(120,190,255,.05) 62%,rgba(8,18,40,.34) 100%);
-  --spec:linear-gradient(120deg,rgba(255,255,255,.13) 0%,rgba(255,255,255,0) 38%);
-  --shadow:0 12px 28px rgba(2,8,24,.46),0 0 22px rgba(56,226,255,.12),inset 0 1px 0 var(--rim),inset 0 -1px 0 var(--rim2);
+  --bg:#050912;--ink:#F2F7FF;--dim:#A9BED6;--dim2:#7189A6;
+  --acc:#56E2FF;--acc2:#7AA6FF;--deep:#12304F;--violet:#9B6BFF;
+  --r1:rgba(120,190,255,.14);--r2:rgba(120,190,255,.26);--r3:rgba(140,210,255,.46);
+  /* 液态玻璃：与正版脚本 --lg-* 同源 */
+  --rim:rgba(255,255,255,.30);--rim-dim:rgba(255,255,255,.14);
+  --edge:rgba(140,200,255,.22);
+  --tint:linear-gradient(155deg,rgba(255,255,255,.10),rgba(255,255,255,.028) 40%,rgba(8,18,38,.30));
+  --tint-hi:linear-gradient(155deg,rgba(255,255,255,.20),rgba(255,255,255,.07) 34%,rgba(10,22,46,.36) 100%);
+  --sh:0 8px 22px rgba(2,8,24,.36),inset 0 1px 0 var(--rim-dim);
+  --sh-hi:0 12px 28px rgba(2,8,24,.48),0 0 20px rgba(56,226,255,.16),inset 0 1px 0 var(--rim);
+  --t:background .28s ease,border-color .28s ease,box-shadow .28s ease,transform .28s cubic-bezier(.34,1.2,.64,1),color .2s ease;
   --max:1180px;
   --serif:"Songti SC","Noto Serif SC","Source Han Serif SC",STSong,serif;
   --sans:"HarmonyOS Sans SC","MiSans","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
   --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:64px;-webkit-text-size-adjust:100%}
+html{scroll-behavior:smooth;scroll-padding-top:72px;-webkit-text-size-adjust:100%}
 body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.9;
-  overflow-x:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;color-scheme:dark}
-/* 全局隐藏滚动条：滚动交给滚轮 / 触摸 */
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;color-scheme:dark;font-variant-numeric:tabular-nums}
 html,body{scrollbar-width:none;-ms-overflow-style:none}
-body::-webkit-scrollbar,html::-webkit-scrollbar{width:0;height:0;display:none}
+html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
 img{max-width:100%;display:block}
 a{color:var(--acc);text-decoration:none}
 a:hover{text-decoration:underline}
-code{font-family:var(--mono);font-size:1em;padding:1px 5px;border-radius:4px;
-  background:rgba(56,226,255,.10);border:1px solid var(--c1);color:#BFE9FF}
-strong{color:var(--ink);font-weight:650}
-::selection{background:rgba(56,226,255,.26);color:#fff}
+code{font-family:var(--mono);font-size:.94em;padding:1px 6px;border-radius:5px;
+  background:rgba(86,226,255,.08);border:1px solid var(--r1);color:#BFEFFF;word-break:break-all}
+::selection{background:rgba(86,226,255,.28);color:#fff}
+body::before{content:"";position:fixed;inset:-8%;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(560px 420px at 16% 16%,rgba(56,226,255,.16),transparent 70%),
+    radial-gradient(640px 460px at 82% 44%,rgba(122,166,255,.12),transparent 72%),
+    radial-gradient(520px 380px at 34% 92%,rgba(155,107,255,.10),transparent 74%)}
 
-/* 顶栏 */
-.top{position:sticky;top:0;z-index:50;background:rgba(5,11,22,.80);
-  backdrop-filter:blur(14px) saturate(130%);-webkit-backdrop-filter:blur(14px) saturate(130%);
-  border-bottom:1px solid var(--c1)}
-.top .wrap{display:flex;align-items:center;gap:12px;height:58px}
-.mark{width:26px;height:26px;border-radius:50%;overflow:hidden;flex:0 0 auto;
-  border:1px solid var(--c3);box-shadow:0 0 14px rgba(56,226,255,.22)}
+.top{position:sticky;top:0;z-index:60;background:rgba(5,9,18,.82);
+  -webkit-backdrop-filter:blur(16px) saturate(150%);backdrop-filter:blur(16px) saturate(150%);
+  border-bottom:1px solid var(--r1)}
+.top-in{max-width:var(--max);margin:0 auto;padding:0 28px;display:flex;align-items:center;gap:11px;height:62px}
+.mark{width:28px;height:28px;border-radius:8px;overflow:hidden;flex:0 0 auto;
+  border:1px solid var(--r2);box-shadow:0 0 16px rgba(56,226,255,.22)}
 .mark img{width:100%;height:100%;object-fit:cover}
-.brand{font-size:14px;font-weight:650;letter-spacing:.03em;white-space:nowrap}
-.pill{font-family:var(--mono);font-size:12px;padding:1px 7px;border-radius:999px;color:var(--dim);
-  border:1px solid var(--c2);background:rgba(56,226,255,.07);font-variant-numeric:tabular-nums;flex:0 0 auto}
+.brand{font-family:var(--serif);font-size:15px;font-weight:700;letter-spacing:.02em;white-space:nowrap}
+.pill{font-family:var(--mono);font-size:13px;padding:1px 8px;border-radius:999px;color:var(--dim);
+  border:1px solid var(--r2);background:rgba(86,226,255,.07);flex:0 0 auto}
 .nav{margin-left:auto;display:flex;gap:2px;font-size:13px}
-.nav a{color:var(--dim);padding:6px 9px;border-radius:999px;transition:color .22s,background .22s}
-.nav a:hover{color:var(--ink);background:rgba(255,255,255,.045);text-decoration:none}
+.nav a{color:var(--dim);padding:6px 10px;border-radius:999px;transition:color .22s,background .22s;white-space:nowrap}
+.nav a:hover{color:var(--ink);background:rgba(255,255,255,.05);text-decoration:none}
 
-/* 首屏 */
-/* 环境光：固定层，卡片模糊后有内容可折射，液态玻璃才成立 */
-body::before{content:"";position:fixed;inset:-10%;z-index:0;pointer-events:none;
-  background:
-    radial-gradient(520px 380px at 14% 22%,rgba(56,226,255,.13),transparent 70%),
-    radial-gradient(620px 430px at 84% 54%,rgba(155,107,255,.11),transparent 72%),
-    radial-gradient(460px 340px at 46% 88%,rgba(56,226,255,.07),transparent 74%)}
-.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--c1)}
-.hero-bg{position:absolute;inset:0;z-index:0;background-image:url("./assets/panel-hero.jpeg");
-  background-size:cover;background-position:50% 22%;opacity:.55}
-.hero-bg::after{content:"";position:absolute;inset:0;
-  background:
-    linear-gradient(95deg,rgba(5,11,22,.97) 0%,rgba(5,11,22,.88) 36%,rgba(5,11,22,.48) 60%,rgba(5,11,22,.24) 78%,rgba(5,11,22,.66) 100%),
-    linear-gradient(180deg,rgba(5,11,22,.70) 0,rgba(5,11,22,0) 24%,rgba(5,11,22,0) 62%,rgba(5,11,22,.96) 100%),
-    radial-gradient(620px 420px at 10% 84%,rgba(56,226,255,.16),transparent 68%)}
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--r1)}
+.hero-art{position:absolute;top:-4%;right:0;width:52%;height:108%;z-index:0;pointer-events:none;opacity:.40;
+  background-image:url("./assets/panel-hero.jpeg");background-size:cover;background-position:60% 40%;
+  filter:saturate(.9);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 26%,#000 80%,transparent 100%);
+  mask-image:linear-gradient(90deg,transparent 0,#000 26%,#000 80%,transparent 100%)}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 28px;position:relative;z-index:1}
-.hero-in{display:grid;grid-template-columns:1.06fr .94fr;gap:50px;align-items:center;
-  padding:72px 0 62px;position:relative;z-index:1}
-.eyebrow{display:flex;align-items:center;gap:9px;font-size:12px;letter-spacing:.16em;
-  text-transform:uppercase;color:var(--dim2);font-family:var(--mono)}
-.eyebrow::before{content:"";width:22px;height:1px;background:var(--c4);flex:0 0 auto}
-h1{font-family:var(--serif);font-weight:900;line-height:1.05;letter-spacing:-.02em;
-  font-size:clamp(38px,5.4vw,62px);margin-top:16px;
-  background:linear-gradient(112deg,#FFFFFF 8%,#D8F6FF 38%,var(--acc) 74%,var(--vio) 100%);
+.hero-in{display:grid;grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr);gap:44px;align-items:center;
+  padding:66px 0 52px}
+.eyebrow{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:13px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--dim2)}
+.eyebrow::before{content:"";width:22px;height:1px;background:var(--r3);flex:0 0 auto}
+h1{font-family:var(--serif);font-weight:900;line-height:1.06;letter-spacing:-.015em;
+  font-size:clamp(38px,5.2vw,62px);margin-top:16px;
+  background:linear-gradient(112deg,#FFFFFF 6%,#D8F6FF 38%,var(--acc) 74%,var(--acc2) 100%);
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-h1 small{display:block;font-family:var(--sans);font-size:clamp(13px,1.5vw,15px);font-weight:500;
-  letter-spacing:.30em;color:var(--dim2);margin-top:14px;-webkit-text-fill-color:var(--dim2)}
-.tagline{font-size:clamp(16px,1.9vw,19px);font-weight:650;letter-spacing:.06em;margin-top:18px;color:var(--ink)}
-.lede{max-width:38ch;margin-top:12px;font-size:15px;line-height:1.95;color:#C3D8EE}
+h1 small{display:block;font-family:var(--sans);font-size:13px;font-weight:500;
+  letter-spacing:.30em;color:var(--dim2);margin-top:15px;-webkit-text-fill-color:var(--dim2)}
+.lede{max-width:38ch;margin-top:18px;font-size:15.5px;line-height:1.95;color:#C9DDF0}
 .lede b{color:var(--ink);font-weight:650}
-.chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:22px}
-.chip{font-size:12px;padding:2px 10px;border-radius:999px;color:var(--dim);
-  border:1px solid var(--c1);background:rgba(56,226,255,.05)}
-.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
-.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;min-height:44px;
-  padding:0 22px;border-radius:8px;font-size:14px;font-weight:600;color:var(--ink);
-  border:1px solid var(--c3);background:rgba(56,226,255,.08);
-  transition:transform .24s cubic-bezier(.34,1.2,.64,1),background .24s,border-color .24s,box-shadow .24s}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:20px}
+.chip{font-size:13px;padding:2px 10px;border-radius:999px;color:var(--dim);
+  border:1px solid var(--r1);background:rgba(255,255,255,.03)}
+.notice{display:flex;align-items:center;gap:9px;margin-top:20px;font-size:13px;color:var(--dim);flex-wrap:wrap}
+.notice .tag{font-family:var(--mono);font-size:13px;letter-spacing:.08em;padding:1px 8px;border-radius:999px;
+  border:1px solid var(--r3);color:var(--acc);background:rgba(86,226,255,.08)}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 22px;
+  border-radius:9px;font-size:14px;font-weight:600;color:var(--ink);border:1px solid var(--r3);
+  background:rgba(86,226,255,.08);transition:var(--t)}
 .btn span{position:relative;z-index:2}
 .btn::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
-  box-shadow:inset 0 1px 0 rgba(220,245,255,.28),inset 0 -1px 0 rgba(220,245,255,.08)}
-.btn:hover{text-decoration:none;transform:translateY(-2px);border-color:var(--c4);
+  box-shadow:inset 0 1px 0 rgba(220,245,255,.30),inset 0 -1px 0 rgba(220,245,255,.08)}
+.btn:hover{text-decoration:none;transform:translateY(-2px);border-color:rgba(140,220,255,.6);
   box-shadow:0 10px 26px rgba(0,0,0,.45),0 0 22px rgba(56,226,255,.18)}
-.btn.pri{background:linear-gradient(135deg,rgba(56,226,255,.30),rgba(155,107,255,.26));
-  border-color:rgba(150,225,255,.52);color:#fff}
-.figs{display:grid;grid-template-columns:repeat(4,1fr);margin-top:42px;font-size:14.5px;max-width:62ch;
-  border-top:1px solid var(--c1);padding-top:20px}
+.btn.pri{background:linear-gradient(135deg,rgba(18,48,79,.9),rgba(86,226,255,.5));
+  border-color:rgba(150,230,255,.58);color:#fff}
+.figs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:36px;padding-top:18px;
+  border-top:1px solid var(--r1)}
 .fig{padding-right:14px}
-.fig .v{font-size:clamp(21px,2.3vw,27px);font-weight:700;letter-spacing:-.02em;line-height:1.2;
-  color:#F2FBFF;font-variant-numeric:tabular-nums;
-  text-shadow:0 1px 0 rgba(0,0,0,.6),0 0 22px rgba(56,226,255,.32)}
-.fig .v i{font-style:normal;font-size:12px;font-weight:500;color:var(--dim);margin-left:2px}
-.fig .k{font-size:12px;color:var(--dim2);margin-top:5px}
+.fig .v{font-size:clamp(21px,2.3vw,27px);font-weight:700;letter-spacing:-.02em;line-height:1.2;color:#F4FAFF;
+  text-shadow:0 1px 0 rgba(0,0,0,.6),0 0 22px rgba(56,226,255,.30)}
+.fig .v i{font-style:normal;font-size:13px;font-weight:500;color:var(--dim);margin-left:2px}
+.fig .k{font-size:13px;line-height:1.6;color:var(--dim2);margin-top:4px}
 
-/* 首屏右：面板实拍 */
-.shotcard{position:relative;padding:10px;border-radius:14px;width:100%;max-width:392px;justify-self:end;background:var(--glass);
-  background-image:var(--spec),var(--tint);border:1px solid rgba(150,225,255,.22);
-  box-shadow:var(--shadow);backdrop-filter:blur(16px) saturate(150%);
-  -webkit-backdrop-filter:blur(16px) saturate(150%)}
-.shotcard img{border-radius:8px;width:100%;height:auto}
-.shotcard .cap{display:flex;align-items:center;justify-content:space-between;gap:10px;
-  padding:9px 4px 2px;font-size:11.5px;color:var(--dim)}
-.shotcard .cap b{color:var(--ink);font-weight:600;font-size:12px}
+.hero-vis{position:relative;z-index:1}
+.vis{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--edge);
+  background:var(--tint);box-shadow:var(--sh-hi);padding:10px}
+.vis img{width:100%;border-radius:12px}
+.vis-meta{display:flex;align-items:center;gap:8px;margin-top:9px;font-family:var(--mono);font-size:13px;color:#C9E9FF}
+.vis-meta b{color:#fff;font-weight:700}
+.cap{margin-top:9px;font-family:var(--mono);font-size:13px;color:var(--dim2)}
 
-/* 区块 */
-section.sec{padding:76px 0 0}
-.sec-h{display:grid;grid-template-columns:auto 1fr;gap:0 18px;align-items:end;
-  padding-bottom:14px;border-bottom:1px solid var(--c1);margin-bottom:30px}
-.sec-n{font-family:var(--serif);font-weight:900;font-size:clamp(30px,4vw,48px);line-height:.86;
-  color:var(--c3);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
-.sec-t{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
-.sec-t h2{font-size:clamp(20px,2.2vw,25px);font-weight:700;letter-spacing:-.01em}
-.sec-t .en{font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:var(--dim2);text-transform:uppercase}
-.sec-note{grid-column:2;font-size:13px;color:var(--dim);margin-top:7px;max-width:62ch}
-.prose{max-width:62ch;font-size:14.5px;line-height:1.95;color:#C3D8EE}
-.prose p+p{margin-top:10px}
-.card{position:relative;background-color:rgba(12,24,46,.34);background-image:var(--tint);
-  border:1px solid rgba(150,225,255,.22);border-radius:10px;box-shadow:var(--shadow);
-  backdrop-filter:blur(16px) saturate(150%);-webkit-backdrop-filter:blur(16px) saturate(150%)}
+.sec{position:relative;padding:56px 0;border-bottom:1px solid var(--r1)}
+.sec-h{position:relative;padding-left:62px;margin-bottom:28px}
+.sec-h .no{position:absolute;left:0;top:2px;font-family:var(--mono);font-size:13px;font-weight:700;
+  color:var(--acc);letter-spacing:.1em}
+.sec-h .no::after{content:"";position:absolute;left:0;top:26px;width:34px;height:1px;background:var(--r2)}
+.sec-h h2{font-family:var(--serif);font-size:clamp(26px,3.4vw,36px);font-weight:900;letter-spacing:-.01em;line-height:1.2}
+.sec-h .k{display:inline-block;margin-top:6px;font-family:var(--mono);font-size:13px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--dim2)}
+.sec-h .lead{max-width:62ch;margin-top:12px;font-size:14.5px;line-height:1.9;color:var(--dim)}
 
-/* 功能卡 */
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:26px}
-.card.feat{padding:20px 20px 22px;transition:transform .28s cubic-bezier(.34,1.2,.64,1),border-color .28s,box-shadow .28s}
-.card.feat:hover{transform:translateY(-3px);border-color:rgba(150,225,255,.36);
-  box-shadow:0 16px 34px rgba(2,8,24,.50),0 0 26px rgba(56,226,255,.14),inset 0 1px 0 var(--rim)}
-.feat h3{font-size:14.5px;font-weight:650;margin-bottom:8px;display:flex;align-items:center;gap:8px}
-.feat h3::before{content:"";width:6px;height:6px;border-radius:50%;flex:0 0 auto;background:var(--acc);
-  box-shadow:0 0 10px rgba(56,226,255,.75)}
-.feat:nth-child(4n+3) h3::before,.feat:nth-child(4n+4) h3::before{background:var(--vio);box-shadow:0 0 10px rgba(155,107,255,.75)}
-.feat p{font-size:13px;line-height:1.85;color:var(--dim)}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.card{border:1px solid var(--edge);border-radius:14px;background:var(--tint);padding:17px 18px 15px;
+  -webkit-backdrop-filter:blur(14px) saturate(150%);backdrop-filter:blur(14px) saturate(150%);
+  box-shadow:var(--sh);transition:var(--t)}
+.card:hover{transform:translateY(-2px);background:var(--tint-hi);border-color:rgba(140,220,255,.40);box-shadow:var(--sh-hi)}
+.card .cn{font-family:var(--mono);font-size:13px;color:var(--acc);letter-spacing:.1em}
+.card h3{font-size:15px;font-weight:650;margin:6px 0 6px;color:#fff}
+.card p{font-size:13px;line-height:1.8;color:var(--dim)}
+.card p b{color:#CFEFFF;font-weight:600}
 
-/* 截图 */
-.shots{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
-.shot{border-radius:12px;overflow:hidden;padding:0;display:flex;flex-direction:column;
-  background-color:rgba(12,24,46,.34);background-image:var(--tint);border:1px solid rgba(150,225,255,.22);
-  box-shadow:var(--shadow)}
-.shot .img{border-bottom:1px solid rgba(150,225,255,.14);overflow:hidden;background:rgba(8,16,32,.55)}
-.shot .img img{width:100%;height:auto;transition:transform .28s cubic-bezier(.34,1.2,.64,1)}
-.shot:hover .img img{transform:scale(1.035)}
-.shot .cap{padding:11px 13px 13px;flex:1}
-.shot .cap b{display:block;font-size:12.5px;font-weight:650;margin-bottom:3px}
-.shot .cap span{font-size:12px;color:var(--dim);line-height:1.7}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.step{position:relative;border:1px solid var(--edge);border-radius:14px;background:var(--tint);padding:19px 18px 17px;
+  box-shadow:var(--sh);transition:var(--t)}
+.step:hover{transform:translateY(-2px);border-color:rgba(140,220,255,.40);box-shadow:var(--sh-hi)}
+.step .n{font-family:var(--serif);font-size:30px;font-weight:900;line-height:1;color:rgba(120,220,255,.9);
+  -webkit-text-fill-color:currentColor}
+.step h3{font-size:15px;font-weight:650;margin:8px 0 6px;color:#fff}
+.step p{font-size:13px;line-height:1.85;color:var(--dim)}
+.step p em{font-style:normal;color:#CFEFFF}
+.after{margin-top:14px;font-size:13px;color:var(--dim2);border-left:2px solid var(--r2);padding-left:12px;line-height:1.85}
 
-/* 步骤 */
-.steps{counter-reset:s;margin-top:6px}
-.step{display:grid;grid-template-columns:44px 1fr;gap:18px;padding:22px 0;
-  border-bottom:1px solid var(--c1);counter-increment:s}
-.step:last-child{border-bottom:0}
-.step::before{content:counter(s,decimal-leading-zero);font-family:var(--mono);font-size:12px;
-  color:var(--acc);letter-spacing:.06em;padding-top:4px;font-variant-numeric:tabular-nums}
-.step h3{font-size:15px;font-weight:650;margin-bottom:6px}
-.step p{font-size:13.5px;line-height:1.9;color:var(--dim);max-width:62ch}
-.step p+p{margin-top:6px}
-.hint{margin-top:16px;padding:14px 16px;border-radius:10px;font-size:13px;line-height:1.85;color:var(--dim);
-  background:rgba(255,196,107,.055);border:1px solid rgba(255,196,107,.24)}
-.hint b{color:#FFC46B}
+.shots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;align-items:start}
+.shot{margin:0;max-width:352px;justify-self:center}
+.shot img{width:100%;border-radius:12px;border:1px solid var(--edge);box-shadow:var(--sh)}
+.shot figcaption{margin-top:9px;font-family:var(--mono);font-size:13px;color:var(--dim2);line-height:1.7}
+.shot figcaption b{color:var(--dim);font-weight:600}
 
-/* 更新清单 */
-.log{display:grid;margin-top:4px}
-.log-it{display:grid;grid-template-columns:110px 1fr;gap:18px;padding:16px 0;border-top:1px solid var(--c1)}
-.log-it .v{font-family:var(--mono);font-size:12px;color:var(--acc);padding-top:2px;font-variant-numeric:tabular-nums}
-.log-it h4{font-size:14px;font-weight:650;margin-bottom:4px}
-.log-it p{font-size:13px;line-height:1.85;color:var(--dim)}
+.notes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.note{border:1px solid var(--edge);border-radius:13px;background:var(--tint);padding:15px 16px;transition:var(--t)}
+.note:hover{border-color:rgba(140,220,255,.36);background:var(--tint-hi)}
+.note h3{font-size:14px;font-weight:650;color:#fff;display:flex;align-items:center;gap:8px}
+.note h3::before{content:"—";color:var(--acc);font-family:var(--mono)}
+.note p{margin-top:5px;font-size:13px;line-height:1.8;color:var(--dim)}
 
-/* 社群 */
-.comm{display:grid;grid-template-columns:200px 1fr;gap:28px;align-items:center;margin-top:8px}
-.comm .qr{padding:10px;border-radius:12px;background:var(--glass);background-image:var(--tint);
-  border:1px solid rgba(150,225,255,.20);box-shadow:var(--shadow)}
-.comm .qr img{border-radius:6px;background:#fff;padding:6px}
-.comm .gid{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.comm .gid b{font-family:var(--mono);font-size:19px;letter-spacing:.06em;color:#fff;font-variant-numeric:tabular-nums}
-.copy{min-height:44px;padding:0 16px;border-radius:8px;font-size:12.5px;font-weight:600;color:var(--ink);
-  background:rgba(56,226,255,.10);border:1px solid var(--c3);cursor:pointer;
-  transition:background .22s,transform .22s}
-.copy:hover{background:rgba(56,226,255,.18);transform:translateY(-1px)}
-.comm p{font-size:13px;color:var(--dim);margin-top:10px;line-height:1.85}
-.tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
-.tags span{font-size:12px;padding:2px 9px;border-radius:999px;color:var(--dim);
-  border:1px solid var(--c1);background:rgba(255,255,255,.03)}
+.inst{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:14px}
+.kv{border:1px solid var(--edge);border-radius:14px;background:var(--tint);padding:16px 18px;box-shadow:var(--sh)}
+.kv dl{display:grid;grid-template-columns:92px 1fr;gap:10px 12px;font-size:13px}
+.kv dt{color:var(--dim2);font-family:var(--mono);font-size:13px;letter-spacing:.04em}
+.kv dd{color:var(--ink);word-break:break-all}
+.kv dd b{color:var(--acc)}
 
-/* 须知 */
-.terms li{list-style:none;display:grid;grid-template-columns:26px 1fr;gap:14px;padding:14px 0;
-  border-top:1px solid var(--c1);font-size:13px;line-height:1.85;color:var(--dim)}
-.terms li:first-child{border-top:0}
-.terms .n{font-family:var(--mono);font-size:12px;color:var(--c3);padding-top:2px}
-.terms b{color:var(--ink);font-weight:650}
+.comm{display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center;
+  border:1px solid var(--edge);border-radius:14px;background:var(--tint);padding:16px;box-shadow:var(--sh)}
+.comm img{width:150px;border-radius:10px;border:1px solid var(--r1)}
+.comm .gid{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:15px}
+.comm .gid b{color:var(--acc)}
+.copy{min-height:34px;padding:0 12px;border-radius:8px;font-size:13px;color:var(--ink);cursor:pointer;
+  border:1px solid var(--r2);background:rgba(86,226,255,.08);font-family:var(--sans)}
+.copy:hover{border-color:var(--r3);background:var(--tint-hi)}
+.comm p{margin-top:6px;font-size:13px;color:var(--dim)}
+.comm .tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}
+.comm .tags span{font-size:13px;padding:1px 9px;border-radius:999px;border:1px solid var(--r1);color:var(--dim2)}
 
-/* 页脚 */
-footer{margin-top:88px;border-top:1px solid var(--c1);padding:44px 0 46px}
-.f-top{display:flex;align-items:flex-start;justify-content:space-between;gap:34px;flex-wrap:wrap}
-.f-l{font-size:13px;color:var(--dim);line-height:1.9}
-.f-l b{display:block;font-size:15px;color:var(--ink);font-weight:650;margin-bottom:4px}
-.f-links{display:flex;gap:18px;flex-wrap:wrap;font-size:12.5px;margin-top:12px}
-.f-links a{color:var(--dim2)}
-.f-links a:hover{color:var(--acc)}
-.sign{margin-top:30px;padding:20px 16px;border-radius:14px;text-align:center;
-  border:1px solid rgba(150,225,255,.20);background-image:var(--tint);background-color:rgba(255,255,255,.025);
-  box-shadow:inset 0 1px 0 var(--rim),inset 0 -1px 0 var(--rim2)}
-.sign p:first-child{font-size:13px;letter-spacing:.04em;color:#E6F5FF}
-.sign p:first-child b{font-weight:700;letter-spacing:.06em;
-  background:linear-gradient(100deg,var(--acc),var(--vio));
+.sign{border:1px solid var(--edge);border-radius:16px;background:var(--tint);padding:26px 22px;text-align:center;
+  box-shadow:var(--sh-hi);-webkit-backdrop-filter:blur(16px) saturate(150%);backdrop-filter:blur(16px) saturate(150%)}
+.sign p{font-size:13px;line-height:1.7;color:rgba(240,250,255,.9)}
+.sign p+p{margin-top:6px;font-family:var(--mono);font-size:13px;color:var(--dim2);letter-spacing:.04em}
+.sign b{font-weight:700;background:linear-gradient(100deg,var(--acc),var(--acc2));
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.sign p:last-child{font-size:12px;color:var(--dim2);margin-top:5px;font-family:var(--mono);letter-spacing:.04em}
+.foot{padding:32px 0 46px;display:flex;align-items:center;justify-content:space-between;gap:16px;
+  font-family:var(--mono);font-size:13px;color:var(--dim2);flex-wrap:wrap}
+.foot a{color:var(--dim);margin-right:14px}
 
-/* 入场 */
-.rv{opacity:0;transform:translateY(16px);animation:rv .75s cubic-bezier(.2,.72,.2,1) forwards}
-@keyframes rv{to{opacity:1;transform:none}}
-.d1{animation-delay:.06s}.d2{animation-delay:.16s}.d3{animation-delay:.26s}
-.d4{animation-delay:.36s}.d5{animation-delay:.46s}
-
-@media (max-width:980px){
-  .hero-in{grid-template-columns:1fr;gap:34px;padding:54px 0 46px}
-  .hero-bg{background-position:50% 12%;opacity:.48}
-  .lede{max-width:none}
-  .figs{grid-template-columns:repeat(2,1fr);gap:16px 0}
-  .grid,.shots{grid-template-columns:1fr}
-  .comm{grid-template-columns:1fr;gap:18px}
-  .comm .qr{max-width:220px}
+@media (max-width:1100px){
+  .hero-in{gap:32px;padding:58px 0 48px}
+  .grid3{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .shots{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:900px){
+  .hero-art{width:100%;opacity:.34}
+  .hero-in{grid-template-columns:1fr;gap:24px;padding:52px 0 42px}
+  .hero-vis{order:2}
+  .lede{max-width:52ch}
+  .figs{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 0}
+  .shots{grid-template-columns:1fr}
+  .notes{grid-template-columns:1fr}
+  .inst{grid-template-columns:1fr}
+  .comm{grid-template-columns:1fr}
+  .comm img{width:120px}
+  .sec{padding:48px 0}
+  .sec-h{padding-left:0}
+  .sec-h .no{position:static;display:block;margin-bottom:6px}
+  .sec-h .no::after{display:none}
 }
 @media (max-width:640px){
-  .wrap{padding:0 20px}
-  body{font-size:14px;line-height:1.9}
-  .top .wrap{height:54px;gap:9px}
+  .top-in{padding:0 18px;gap:9px;height:56px}
+  .nav{gap:0;font-size:13px}
+  .nav a{padding:6px 7px}
+  .nav a:nth-child(n+5){display:none}
+  .wrap{padding:0 18px}
   .brand{font-size:13px}
   .pill{display:none}
-  .nav{flex:1 1 0;min-width:0;margin-left:6px;justify-content:flex-end;gap:0}
-  /* 窄屏只留五项，七项挤不进 390 宽（会横向溢出） */
-  .nav a:nth-child(1),.nav a:nth-child(3){display:none}
-  .nav a{flex:1 1 0;min-width:0;font-size:11.5px;padding:6px 2px;text-align:center}
-  .hero-in{padding:42px 0 38px;gap:26px}
-  .hero-bg{opacity:.42}
-  .hero-bg::after{background:
-    linear-gradient(180deg,rgba(5,11,22,.95) 0,rgba(5,11,22,.86) 44%,rgba(5,11,22,.94) 100%),
-    radial-gradient(420px 320px at 50% 74%,rgba(56,226,255,.12),transparent 70%)}
-  .shotcard{justify-self:center}
-  .lede,.fig .k,.fig .v{text-shadow:0 1px 8px rgba(2,6,16,.8)}
-  h1{font-size:clamp(30px,9vw,40px)}
-  h1 small{letter-spacing:.2em;font-size:12px}
-  .cta{flex-direction:column;align-items:stretch}
-  .btn{width:100%}
-  .fig .v{font-size:21px}
-  section.sec{padding:56px 0 0}
-  .sec-note{grid-column:1/-1}
-  .step{grid-template-columns:32px 1fr;gap:12px;padding:18px 0}
-  .log-it{grid-template-columns:84px 1fr;gap:12px}
-  footer{padding:36px 0 40px}
-  .sign{padding:18px 12px}
+  .steps,.grid3{grid-template-columns:1fr}
+  h1{font-size:34px}
+  .chips{display:none}
+  .hero-in{padding:42px 0 34px}
 }
-@media (max-width:380px){
-  .figs{grid-template-columns:1fr;gap:12px 0}
-  .nav a{font-size:11px;padding:6px 1px}
-  .log-it{grid-template-columns:1fr;gap:4px}
-}
-@media (prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation:none!important;transition:none!important}
-  .rv{opacity:1;transform:none}
-}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 
 <header class="top">
-  <div class="wrap">
-    <span class="mark"><img src="./assets/icon.png" alt="DS-Whalegirl"></span>
+  <div class="top-in">
+    <a class="mark" href="./" aria-label="DS-Whalegirl"><img src="./assets/icon.png" alt=""></a>
     <span class="brand">DS-Whalegirl</span>
     <span class="pill">v0.5.2</span>
     <nav class="nav">
-      <a href="#why">定位</a>
-      <a href="#features">能力</a>
-      <a href="#shots">截图</a>
-      <a href="#install">安装</a>
-      <a href="#changelog">更新</a>
-      <a href="#community">群聊</a>
-      <a href="#notice">须知</a>
+      <a href="#why">定位</a><a href="#features">能力</a><a href="#shots">截图</a><a href="#install">安装</a><a href="#changelog">更新</a><a href="#community">群聊</a><a href="#notice">须知</a>
     </nav>
   </div>
 </header>
 
 <section class="hero">
-  <div class="hero-bg"></div>
-  <div class="wrap">
-    <div class="hero-in">
-      <div>
-        <div class="eyebrow rv">CHAOXING · 学习通 · 学习辅助助手</div>
-        <h1 class="rv d1">DS-Whalegirl<small>WHALE IN THE DEEP</small></h1>
-        <p class="tagline rv d2">潜入深海，替你捕完所有的课。</p>
-        <p class="lede rv d3">把「看课、答题、写文档」这一长串重复操作交给它：<b>AI 自动答题最多重问 3 遍</b>、<b>最小化也能连续挂机</b>、字体自动解密、花费一屏看清。不改动学习通本身，全部能力都在右下角那一个面板里。</p>
-        <div class="chips rv d3">
-          <span class="chip">AI 自动答题</span>
-          <span class="chip">后台挂机守护</span>
-          <span class="chip">视频倍速</span>
-          <span class="chip">卡顿自愈</span>
-          <span class="chip">字体解密</span>
-          <span class="chip">花费可视化</span>
-        </div>
-        <div class="cta rv d4">
-          <a class="btn pri" href="https://scriptcat.org/zh-CN/script-show-page/8295" target="_blank" rel="noopener"><span>前往 ScriptCat 安装</span></a>
-          <a class="btn" href="https://github.com/Dream-Architect1026/DS-Whalegirl" target="_blank" rel="noopener"><span>GitHub 仓库</span></a>
-        </div>
-        <div class="figs rv d5">
-          <div class="fig"><div class="v">3<i>遍</i></div><div class="k">AI 重问上限</div></div>
-          <div class="fig"><div class="v">24<i>h</i></div><div class="k">后台挂机</div></div>
-          <div class="fig"><div class="v">&lt;0.8<i>元</i></div><div class="k">单门课成本</div></div>
-          <div class="fig"><div class="v">4<i>个</i></div><div class="k">生效站点</div></div>
-        </div>
+  <div class="hero-art" aria-hidden="true"></div>
+  <div class="wrap hero-in">
+    <div>
+      <div class="eyebrow">Chaoxing · 学习通 · 学习辅助助手</div>
+      <h1>DS-Whalegirl<small>W H A L E &nbsp; I N &nbsp; T H E &nbsp; D E E P</small></h1>
+      <p class="lede">潜入深海，替你捕完所有的课。把「看课、答题、写文档」这一长串重复交给它：<b>AI 自动答题最多重问 3 遍</b>、<b>最小化也能连续挂机</b>、字体自动解密、花费一屏看清。</p>
+      <div class="chips">
+        <span class="chip">AI 自动答题</span><span class="chip">后台挂机守护</span><span class="chip">视频倍速</span>
+        <span class="chip">卡顿自愈</span><span class="chip">字体解密</span><span class="chip">花费可视化</span>
       </div>
-
-      <div class="shotcard rv d2">
-        <img src="./assets/shots/panel-log-run.webp" alt="状态页 · 章节推进">
-        <div class="cap"><b>状态页 · 章节推进</b><span>v0.5.2 实机</span></div>
+      <div class="notice"><span class="tag">v0.5.2</span><span>面板五页齐备：状态 / 鲸娘 / 配置 / 引导 / 须知</span></div>
+      <div class="cta">
+        <a class="btn pri" href="https://scriptcat.org/zh-CN/script-show-page/8295" target="_blank" rel="noopener"><span>前往 ScriptCat 安装</span></a>
+        <a class="btn" href="https://github.com/Dream-Architect1026/DS-Whalegirl" target="_blank" rel="noopener"><span>GitHub 仓库</span></a>
       </div>
+      <div class="figs">
+        <div class="fig"><div class="v">3<i>遍</i></div><div class="k">AI 重问上限</div></div>
+        <div class="fig"><div class="v">24<i>h</i></div><div class="k">后台挂机</div></div>
+        <div class="fig"><div class="v">&lt;0.8<i>元</i></div><div class="k">单门课成本</div></div>
+        <div class="fig"><div class="v">4<i>个</i></div><div class="k">生效站点</div></div>
+      </div>
+    </div>
+    <div class="hero-vis">
+      <div class="vis">
+        <img src="./assets/shots/panel-log-run.webp" alt="状态页 · 章节推进（实机截图）">
+        <div class="vis-meta"><b>状态页 · 章节推进</b> / v0.5.2 实机</div>
+      </div>
+      <div class="cap">本页全部截图为真机实拍，面板即页面右下角那一个。</div>
     </div>
   </div>
 </section>
 
 <main class="wrap">
 
-  <section class="sec" id="why">
-    <div class="sec-h">
-      <div class="sec-n">01</div>
-      <div class="sec-t"><h2>它解决的是哪一段重复</h2><span class="en">Positioning</span></div>
-      <p class="sec-note">不替你做决定，只把「必须点、必须等、必须抄」的部分接管下来。答题仍走你自己的 DeepSeek Key，判断权在你。</p>
-    </div>
-    <div class="prose">
-      <p>学习通把一门课拆成视频、文档、图书、章节测验四类任务，每类都要人守着点下一步；题目还会用加密字体渲染，复制出来是乱码。<b>DS-Whalegirl 的定位是把这条流水线接上</b>：按 URL 路由判断当前是什么任务，用对应策略推完，再自己游到下一章。</p>
-      <p>它不改页面结构、不发请求伪造进度，全部操作在你的浏览器里发生；Key 只存本地，费用由你自己在 DeepSeek 侧结算。</p>
-    </div>
-  </section>
+<section class="sec" id="why">
+  <header class="sec-h">
+    <span class="no">01</span>
+    <h2>它接的是哪一段</h2>
+    <span class="k">Positioning</span>
+    <p class="lead">不替你做决定，只把「必须点、必须等、必须抄」的部分接管下来。答题走你自己的 DeepSeek Key，判断权在你。</p>
+  </header>
+  <div class="grid3">
+    <article class="card"><div class="cn">按 URL 路由</div><h3>四类任务各有一套</h3>
+      <p>视频、文档、图书、章节测验分别判定，用对应策略推完，再自己游到下一章。</p></article>
+    <article class="card"><div class="cn">不改页面</div><h3>不发请求伪造进度</h3>
+      <p>全部操作发生在你浏览器里；Key 只存本地，费用在 DeepSeek 侧由你自己结算。</p></article>
+    <article class="card"><div class="cn">加密字体</div><h3>先解密再答题</h3>
+      <p>学习通把题目用加密字体渲染，复制出来是乱码；脚本先还原字形，再交给模型。</p></article>
+  </div>
+</section>
 
-  <section class="sec" id="features">
-    <div class="sec-h">
-      <div class="sec-n">02</div>
-      <div class="sec-t"><h2>能做什么</h2><span class="en">Capabilities</span></div>
-      <p class="sec-note">八项能力，全部收敛在页面右下角的一个面板内；非目标页不会挂载。</p>
-    </div>
-    <div class="grid">
-      <div class="card feat">
-        <h3>AI 自动答题</h3>
-        <p>接入 DeepSeek（<code>deepseek-flash</code> / <code>deepseek-v4-pro</code>），覆盖单选、多选、判断、填空。答案按「字母索引 + 文本相似度」双通道回填，兼容 <code>B</code>、<code>A,C</code>、全角 <code>Ｂ</code> 等写法。</p>
-      </div>
-      <div class="card feat">
-        <h3>自动重问机制</h3>
-        <p>一遍答不出来自动重问，<strong>最多 3 遍</strong>；连续 3 遍拿不到答案就跳过该题，避免单题无限重试拖死整条流水线。每次尝试都在状态页留痕。</p>
-      </div>
-      <div class="card feat">
-        <h3>后台挂机守护</h3>
-        <p>浏览器会节流后台定时器、甚至冻结标签页。三条独立手段保活：可见性恢复立刻补 tick、20 秒心跳阻止整体冻结、定时器自动重建不留空洞。最小化也能连续挂机。</p>
-      </div>
-      <div class="card feat">
-        <h3>视频倍速与卡顿自愈</h3>
-        <p>倍速播放，并在检测到播放器停顿超过阈值时自动戳一下「重播 / 播放」。处于<strong>答题暂停</strong>状态的视频不会被抢播，触发时留通知。</p>
-      </div>
-      <div class="card feat">
-        <h3>文档 / 图书 / 作业</h3>
-        <p>自动完成文档与图书任务，章节作业可自动提交，并自动进入下一章节。脚本内部按 URL 路由判断，非目标页不会挂载面板。</p>
-      </div>
-      <div class="card feat">
-        <h3>加密字体解密</h3>
-        <p>自动还原学习通加密字体，复制与搜题不再是一堆乱码——这是刷题前最影响效率的一环。</p>
-      </div>
-      <div class="card feat">
-        <h3>API 用量与花费</h3>
-        <p>实时显示请求数、token 数、预估花费与账户余额，区分「本次」与「累计」两套口径。缓存命中 / 未命中改用 API 显式字段，不再错算。</p>
-      </div>
-      <div class="card feat">
-        <h3>状态页即时响应</h3>
-        <p>状态词库统一收拢，未登记的状态降级为通用文案而非丢弃；日志写入后同帧合并派发，状态展示在 1 帧内更新。</p>
-      </div>
-    </div>
-  </section>
+<section class="sec" id="features">
+  <header class="sec-h">
+    <span class="no">02</span>
+    <h2>能做什么</h2>
+    <span class="k">Capabilities</span>
+    <p class="lead">八项能力收在一个面板里；非目标页不会挂载。这里只列六项最常用的。</p>
+  </header>
+  <div class="grid3">
+    <article class="card"><div class="cn">01</div><h3>AI 自动答题</h3>
+      <p>接入 DeepSeek（<code>deepseek-flash</code> / <code>deepseek-v4-pro</code>），覆盖单选、多选、判断、填空；答案按<b>字母索引 + 文本相似度</b>双通道回填。</p></article>
+    <article class="card"><div class="cn">02</div><h3>自动重问</h3>
+      <p>一遍答不出自动重问，<b>最多 3 遍</b>；连续失败跳过该题，避免单题拖死整条流水线。</p></article>
+    <article class="card"><div class="cn">03</div><h3>后台挂机守护</h3>
+      <p>浏览器会节流甚至冻结后台定时器。可见性恢复补 tick、<b>20 秒心跳</b>抗冻结、定时器自动重建。</p></article>
+    <article class="card"><div class="cn">04</div><h3>视频倍速与卡顿自愈</h3>
+      <p>停顿超阈值自动戳一下重播；处于<b>答题暂停</b>状态的视频不会被抢播。</p></article>
+    <article class="card"><div class="cn">05</div><h3>文档 / 图书 / 作业</h3>
+      <p>文档与图书任务自动完成，章节作业可自动提交并进入下一章。</p></article>
+    <article class="card"><div class="cn">06</div><h3>用量与花费</h3>
+      <p>请求数、token、预估花费与余额实时显示，「本次 / 累计」两套口径分开算。</p></article>
+  </div>
+</section>
 
-  <section class="sec" id="shots">
-    <div class="sec-h">
-      <div class="sec-n">03</div>
-      <div class="sec-t"><h2>运行效果</h2><span class="en">Screens</span></div>
-      <p class="sec-note">全部为实机截图。面板分「状态 / 鲸娘 / 配置 / 引导 / 须知」五页。</p>
-    </div>
-    <div class="shots">
-      <div class="shot"><div class="img"><img src="./assets/shots/panel-pet.webp" alt="鲸娘页" loading="lazy"></div><div class="cap"><b>鲸娘页</b><span>形象、账户余额与本次用量一屏可见，空闲时轮播语录。</span></div></div>
-      <div class="shot"><div class="img"><img src="./assets/shots/panel-answer.webp" alt="章节测验已答" loading="lazy"></div><div class="cap"><b>章节测验 · 已答</b><span>答案回填正确并标注结果，Token 与花费实时累加。</span></div></div>
-      <div class="shot"><div class="img"><img src="./assets/shots/panel-query.webp" alt="章节测验查询中" loading="lazy"></div><div class="cap"><b>章节测验 · 查询中</b><span>三态指示灯区分「已答 / 查询 / 失败」。</span></div></div>
-      <div class="shot"><div class="img"><img src="./assets/shots/panel-config.webp" alt="配置页" loading="lazy"></div><div class="cap"><b>配置页 · AI 与好感度</b><span>API Key、本地模型选择与好感度进度条，Key 仅存本地。</span></div></div>
-      <div class="shot"><div class="img"><img src="./assets/shots/panel-toggles.webp" alt="任务开关" loading="lazy"></div><div class="cap"><b>配置页 · 任务开关</b><span>自动提交、自动切换、仅作答、弹题作答与倍速集中一屏。</span></div></div>
-      <div class="shot"><div class="img"><img src="./assets/shots/panel-guide.webp" alt="引导页" loading="lazy"></div><div class="cap"><b>引导页</b><span>怎么填 API Key，以及怎样提高识别准确率。</span></div></div>
-      <div class="shot"><div class="img"><img src="./assets/shots/panel-log-boot.webp" alt="状态页启动" loading="lazy"></div><div class="cap"><b>状态页 · 启动拆解</b><span>协议确认、面板就位、嗅到章节、视频拆解，全程留痕。</span></div></div>
-      <div class="shot"><div class="img"><img src="./assets/shots/panel-log-run.webp" alt="状态页章节推进" loading="lazy"></div><div class="cap"><b>状态页 · 章节推进</b><span>本页啃完即游向下一章，作业已写完则跳过。</span></div></div>
-      <div class="shot"><div class="img"><img src="./assets/shots/panel-terms.webp" alt="须知页" loading="lazy"></div><div class="cap"><b>须知页 · 六项声明</b><span>装之前先把边界讲清楚：仅供个人学习与研究，风险自担。</span></div></div>
-    </div>
-  </section>
+<section class="sec" id="shots">
+  <header class="sec-h">
+    <span class="no">03</span>
+    <h2>运行效果</h2>
+    <span class="k">Screens · real</span>
+    <p class="lead">六张实机截图，取自真实课程页运行过程。</p>
+  </header>
+  <div class="shots">
+    <figure class="shot"><img src="./assets/shots/panel-log-run.webp" alt="状态页 · 章节推进">
+      <figcaption><b>状态页 · 章节推进</b> · 本页啃完即游向下一章。</figcaption></figure>
+    <figure class="shot"><img src="./assets/shots/panel-answer.webp" alt="章节测验 · 已答">
+      <figcaption><b>章节测验 · 已答</b> · 答案回填并标注结果，Token 实时累加。</figcaption></figure>
+    <figure class="shot"><img src="./assets/shots/panel-query.webp" alt="章节测验 · 查询中">
+      <figcaption><b>章节测验 · 查询中</b> · 三态指示灯区分已答 / 查询 / 失败。</figcaption></figure>
+    <figure class="shot"><img src="./assets/shots/panel-pet.webp" alt="鲸娘页">
+      <figcaption><b>鲸娘页</b> · 余额与本次用量一屏可见，空闲轮播语录。</figcaption></figure>
+    <figure class="shot"><img src="./assets/shots/panel-config.webp" alt="配置页">
+      <figcaption><b>配置页 · AI 与好感度</b> · Key 仅存本地。</figcaption></figure>
+    <figure class="shot"><img src="./assets/shots/panel-terms.webp" alt="须知页">
+      <figcaption><b>须知页</b> · 装之前先把边界讲清楚。</figcaption></figure>
+  </div>
+</section>
 
-  <section class="sec" id="install">
-    <div class="sec-h">
-      <div class="sec-n">04</div>
-      <div class="sec-t"><h2>怎么装</h2><span class="en">Install</span></div>
-      <p class="sec-note">推荐用脚本猫承载，可自动更新；四步之内就能跑起来。</p>
-    </div>
-    <div class="steps">
-      <div class="step">
-        <div>
-          <h3>安装脚本管理器</h3>
-          <p>在 Edge / Chrome 应用商店安装 <a href="https://scriptcat.org/" target="_blank" rel="noopener">脚本猫 ScriptCat</a>，也可用篡改猴 Tampermonkey。</p>
-        </div>
-      </div>
-      <div class="step">
-        <div>
-          <h3>安装脚本</h3>
-          <p>在脚本猫脚本页点「安装此脚本」，或打开仓库中的 <code>DS-Whalegirl.user.js</code> 点安装。脚本已配置自动更新地址，后续版本会自己跟进。</p>
-        </div>
-      </div>
-      <div class="step">
-        <div>
-          <h3>配置 AI（可选）</h3>
-          <p>在 <a href="https://platform.deepseek.com/" target="_blank" rel="noopener">platform.deepseek.com</a> 创建 <code>sk-</code> 开头的 API Key，粘贴到面板配置页并选模型。不配也能用，只是不自动答题。</p>
-        </div>
-      </div>
-      <div class="step">
-        <div>
-          <h3>打开课程页面</h3>
-          <p>访问学习通课程页，右下角即出现助手面板。建议先在一门课上前小范围验证，再开启「自动提交 / 自动切换」批量运行。</p>
-        </div>
-      </div>
-    </div>
-    <div class="hint">
-      <b>注意：</b>脚本目前针对 <b>Edge</b> 做了适配，其他浏览器若出现异常请先换 Edge；
-      生效范围为 <code>chaoxing.com</code>，<b>不是所有 edu.cn 都能用</b>；
-      请勿同时启用多个脚本管理器并重复安装本脚本，以免双注入。
-    </div>
-  </section>
+<section class="sec" id="install">
+  <header class="sec-h">
+    <span class="no">04</span>
+    <h2>三步装好</h2>
+    <span class="k">Install</span>
+    <p class="lead">推荐脚本猫承载，可自动更新。</p>
+  </header>
+  <div class="steps">
+    <article class="step"><div class="n">1</div><h3>装脚本管理器</h3>
+      <p>Edge / Chrome 商店装 <a href="https://scriptcat.org/" target="_blank" rel="noopener">脚本猫 ScriptCat</a>，也可用篡改猴。</p></article>
+    <article class="step"><div class="n">2</div><h3>装脚本</h3>
+      <p>脚本页点「安装此脚本」，或打开仓库里的 <code>DS-Whalegirl.user.js</code>；已配自动更新地址。</p></article>
+    <article class="step"><div class="n">3</div><h3>打开课程页</h3>
+      <p>访问学习通课程页，右下角出现面板即生效；要自动答题就在配置页填 <code>sk-</code> 开头的 Key。</p></article>
+  </div>
+  <div class="after"><b>注意：</b>针对 <b>Edge</b> 适配；生效范围 <code>chaoxing.com</code>，不是所有 edu.cn 都能用；请勿同时启用多个脚本管理器重复安装，以免双注入。</div>
+</section>
 
-  <section class="sec" id="changelog">
-    <div class="sec-h">
-      <div class="sec-n">05</div>
-      <div class="sec-t"><h2>更新说明</h2><span class="en">Changelog</span></div>
-      <p class="sec-note">完整记录见仓库 CHANGELOG.md，这里是近期要点。</p>
-    </div>
-    <div class="log">
-      <div class="log-it">
-        <div class="v">v0.5.2</div>
-        <div>
-          <h4>后台挂机守护 · Token 计费修正 · 状态页即时响应</h4>
-          <p>可见性恢复补 tick、20s 心跳抗冻结、定时器自动重建，最小化连续挂机不中断；缓存命中 / 未命中改用 API 显式字段，修掉漏记；状态词库统一收拢、同帧合并派发。</p>
-        </div>
-      </div>
-      <div class="log-it">
-        <div class="v">v0.5.1</div>
-        <div>
-          <h4>自动重问 · 三态作答 · 卡顿重播</h4>
-          <p>AI 自动重问（最多 3 遍，连续失败跳过该题）；作答状态收口为已答 / 查询中 / 失败；视频卡顿自动重播并留通知；品牌更名 DS-Whalegirl；<code>@match</code> 收窄为 4 个站点。</p>
-        </div>
-      </div>
-      <div class="log-it">
-        <div class="v">v0.4.13</div>
-        <div>
-          <h4>花费精度统一 · 日志贴底不抢滚动条</h4>
-          <p>主显示两位小数、悬浮提示四位；状态页日志自动贴底且不与用户抢滚动条；「其他」卡片从界面移除、参数写死。</p>
-        </div>
-      </div>
-      <div class="log-it">
-        <div class="v">v0.4.12</div>
-        <div>
-          <h4>修复「本次」用量归零失灵</h4>
-          <p>根因是基线写在 <code>sessionStorage</code>，同一标签页跨刷新与关脚本重开都存活，改为内存变量。</p>
-        </div>
-      </div>
-      <div class="log-it">
-        <div class="v">v0.4.11</div>
-        <div>
-          <h4>界面大改版</h4>
-          <p>液态玻璃悬浮胶囊、背景脉动光、好感度面板（累计花费分 5 档解锁 50 条语录）。</p>
-        </div>
-      </div>
-    </div>
-  </section>
+<section class="sec" id="changelog">
+  <header class="sec-h">
+    <span class="no">05</span>
+    <h2>最近三次更新</h2>
+    <span class="k">Changelog</span>
+    <p class="lead">完整记录见仓库 CHANGELOG.md。</p>
+  </header>
+  <div class="notes">
+    <article class="note"><h3>v0.5.2 后台挂机守护</h3>
+      <p>可见性恢复补 tick、20s 心跳抗冻结、定时器自动重建；缓存命中口径改用 API 显式字段；状态词库统一收拢。</p></article>
+    <article class="note"><h3>v0.5.1 自动重问 · 三态作答</h3>
+      <p>AI 最多重问 3 遍；作答状态收口为已答 / 查询中 / 失败；视频卡顿自动重播；<code>@match</code> 收窄为 4 站。</p></article>
+    <article class="note"><h3>v0.4.13 花费精度统一</h3>
+      <p>主显示两位小数、悬浮提示四位；日志贴底不抢滚动条；冗余卡片移除。</p></article>
+    <article class="note"><h3>v0.4.11 界面大改版</h3>
+      <p>液态玻璃悬浮胶囊、背景脉动光、好感度面板（累计花费分 5 档解锁 50 条语录）。</p></article>
+  </div>
+</section>
 
-  <section class="sec" id="community">
-    <div class="sec-h">
-      <div class="sec-n">06</div>
-      <div class="sec-t"><h2>加入交流群</h2><span class="en">Community</span></div>
-      <p class="sec-note">遇到问题、想提建议、或者只剩催更，都欢迎进群。</p>
-    </div>
-    <div class="comm">
-      <div class="qr"><img src="./assets/qq-group.jpg" alt="QQ 群二维码" loading="lazy"></div>
-      <div>
-        <div class="gid">
-          <b>1128950753</b>
-          <button class="copy" id="copyQ" type="button">复制群号</button>
-        </div>
-        <p>反馈 bug 时请尽量附上这几项，能让你少等一周。群同时是 伴学小鲸（数字党校版）的交流入口。</p>
-        <div class="tags">
-          <span>脚本版本号</span><span>浏览器版本</span><span>控制台报错</span><span>复现步骤</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec" id="notice">
-    <div class="sec-h">
-      <div class="sec-n">07</div>
-      <div class="sec-t"><h2>使用须知</h2><span class="en">Terms</span></div>
-      <p class="sec-note">使用本脚本即视为完全同意以下六项声明。</p>
-    </div>
-    <ul class="terms">
-      <li><span class="n">01</span><div><b>学习与研究用途</b> —— 仅供个人学习与研究，请遵守所在学校的教学管理规定、学术诚信要求，以及所用平台的用户协议与服务条款，勿用于代写作业、替考等违规用途。</div></li>
-      <li><span class="n">02</span><div><b>账号安全</b> —— 脚本不收集 / 上传 / 保存你的账号密码，请自行保管学习通账号，切勿将 API Key 泄露给他人。</div></li>
-      <li><span class="n">03</span><div><b>数据与隐私</b> —— 仅在你主动使用 AI 答题时，向 DeepSeek 接口发送题目与选项文本；不会上传你的学习记录、浏览历史或个人信息。</div></li>
-      <li><span class="n">04</span><div><b>费用与额度</b> —— AI 答题调用 DeepSeek 官方接口，费用由 DeepSeek 按你的账户实际用量计费，作者不承担任何费用。</div></li>
-      <li><span class="n">05</span><div><b>风险自担</b> —— 使用脚本可能与相应平台产生冲突（如触发限流），由此产生的一切后果由使用者自行承担。</div></li>
-      <li><span class="n">06</span><div><b>开发者权利</b> —— 最终解释权归脚本开发者所有。</div></li>
-    </ul>
-  </section>
-</main>
-
-<footer>
-  <div class="wrap">
-    <div class="f-top">
-      <div class="f-l">
-        <b>DS-Whalegirl</b>
-        超星学习通学习辅助助手 · 潜入深海，替你捕完所有的课<br>
-        v0.5.2 · MIT 协议 · 仅供个人学习与研究使用
-        <div class="f-links">
-          <a href="https://github.com/Dream-Architect1026/DS-Whalegirl" target="_blank" rel="noopener">GitHub 仓库</a>
-          <a href="https://github.com/Dream-Architect1026/DS-Whalegirl/issues" target="_blank" rel="noopener">问题反馈</a>
-          <a href="https://scriptcat.org/zh-CN/script-show-page/8295" target="_blank" rel="noopener">脚本猫</a>
-          <a href="https://dream-architect1026.github.io/ds-whalegirl-hong/" target="_blank" rel="noopener">伴学小鲸 · 数字党校版</a>
-        </div>
-      </div>
-      <div class="f-l" style="text-align:right">
-        <b>&nbsp;</b>
-        交流群 1128950753<br>
-        生效站点 chaoxing.com<br>
-        Edge + ScriptCat 实测
-      </div>
-    </div>
-    <div class="sign">
-      <p>Developed by <b>X.H</b></p>
-      <p>DS-Whalegirl v0.5.2 · MIT License</p>
+<section class="sec" id="community">
+  <header class="sec-h">
+    <span class="no">06</span>
+    <h2>交流群</h2>
+    <span class="k">Community</span>
+    <p class="lead">反馈请附版本号、浏览器版本、控制台报错与复现步骤。</p>
+  </header>
+  <div class="comm">
+    <img src="./assets/qq-group.jpg" alt="QQ 群二维码">
+    <div>
+      <div class="gid"><b>1128950753</b><button class="copy" id="copyQ" type="button">复制群号</button></div>
+      <p>群同时是「伴学小鲸（数字党校版）」的交流入口。</p>
+      <div class="tags"><span>脚本版本号</span><span>浏览器版本</span><span>控制台报错</span><span>复现步骤</span></div>
     </div>
   </div>
-</footer>
+</section>
+
+<section class="sec" id="notice" style="border-bottom:0">
+  <header class="sec-h">
+    <span class="no">07</span>
+    <h2>使用须知</h2>
+    <span class="k">Terms</span>
+    <p class="lead">使用即视为同意以下四组声明；完整六项见脚本须知页。</p>
+  </header>
+  <div class="notes">
+    <article class="note"><h3>学习与研究用途</h3>
+      <p>仅供个人学习与研究，遵守学校教学管理规定与平台协议；勿用于代写作业、替考等违规用途。</p></article>
+    <article class="note"><h3>账号与 Key 安全</h3>
+      <p>脚本不收集、不上传账号密码；Key 只存本地，请勿泄露给他人。</p></article>
+    <article class="note"><h3>数据与隐私</h3>
+      <p>仅在你主动使用 AI 答题时，向 DeepSeek 发送题目与选项文本；不上传学习记录与个人信息。</p></article>
+    <article class="note"><h3>费用与风险</h3>
+      <p>费用由 DeepSeek 按你的账户用量计费，作者不承担；与平台冲突（如限流）的后果自行承担。</p></article>
+  </div>
+</section>
+
+<section class="sec" id="sign" style="border-bottom:0;padding-top:0">
+  <div class="sign">
+    <p>Developed by <b>X.H</b></p>
+    <p>DS-Whalegirl v0.5.2 · MIT License</p>
+  </div>
+  <div class="foot">
+    <span>DS-Whalegirl · 超星学习通学习辅助助手 · 仅供个人学习与研究</span>
+    <span><a href="https://github.com/Dream-Architect1026/DS-Whalegirl">GitHub</a><a href="https://scriptcat.org/zh-CN/script-show-page/8295">脚本猫</a><a href="https://dream-architect1026.github.io/ds-whalegirl-hong/">伴学小鲸 · 数字党校版</a></span>
+  </div>
+</section>
+
+</main>
 
 <script>
 (function () {
@@ -577,18 +441,12 @@ footer{margin-top:88px;border-top:1px solid var(--c1);padding:44px 0 46px}
       }
     } catch (e) {}
     var ta = document.createElement('textarea');
-    ta.value = q;
-    ta.setAttribute('readonly', '');
-    ta.style.position = 'fixed';
-    ta.style.opacity = '0';
-    document.body.appendChild(ta);
-    ta.select();
+    ta.value = q; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
     try { document.execCommand('copy'); } catch (e) {}
-    document.body.removeChild(ta);
-    done();
+    document.body.removeChild(ta); done();
   });
 })();
 </script>
-
 </body>
 </html>
