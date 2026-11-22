@@ -59,6 +59,12 @@ strong{color:var(--ink);font-weight:650}
 .nav a:hover{color:var(--ink);background:rgba(255,255,255,.045);text-decoration:none}
 
 /* 首屏 */
+/* 环境光：固定层，卡片模糊后有内容可折射，液态玻璃才成立 */
+body::before{content:"";position:fixed;inset:-10%;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(520px 380px at 14% 22%,rgba(56,226,255,.13),transparent 70%),
+    radial-gradient(620px 430px at 84% 54%,rgba(155,107,255,.11),transparent 72%),
+    radial-gradient(460px 340px at 46% 88%,rgba(56,226,255,.07),transparent 74%)}
 .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--c1)}
 .hero-bg{position:absolute;inset:0;z-index:0;background-image:url("./assets/panel-hero.jpeg");
   background-size:cover;background-position:50% 22%;opacity:.55}
@@ -128,9 +134,9 @@ section.sec{padding:76px 0 0}
 .sec-note{grid-column:2;font-size:13px;color:var(--dim);margin-top:7px;max-width:62ch}
 .prose{max-width:62ch;font-size:14.5px;line-height:1.95;color:#C3D8EE}
 .prose p+p{margin-top:10px}
-.card{background:var(--glass);background-image:var(--tint);border:1px solid rgba(150,225,255,.18);
-  border-radius:10px;box-shadow:var(--shadow);backdrop-filter:blur(12px) saturate(125%);
-  -webkit-backdrop-filter:blur(12px) saturate(125%)}
+.card{position:relative;background-color:rgba(12,24,46,.34);background-image:var(--tint);
+  border:1px solid rgba(150,225,255,.22);border-radius:10px;box-shadow:var(--shadow);
+  backdrop-filter:blur(16px) saturate(150%);-webkit-backdrop-filter:blur(16px) saturate(150%)}
 
 /* 功能卡 */
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:26px}
@@ -146,7 +152,7 @@ section.sec{padding:76px 0 0}
 /* 截图 */
 .shots{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
 .shot{border-radius:12px;overflow:hidden;padding:0;display:flex;flex-direction:column;
-  background:var(--glass);background-image:var(--tint);border:1px solid rgba(150,225,255,.18);
+  background-color:rgba(12,24,46,.34);background-image:var(--tint);border:1px solid rgba(150,225,255,.22);
   box-shadow:var(--shadow)}
 .shot .img{border-bottom:1px solid rgba(150,225,255,.14);overflow:hidden;background:rgba(8,16,32,.55)}
 .shot .img img{width:100%;height:auto;transition:transform .28s cubic-bezier(.34,1.2,.64,1)}
